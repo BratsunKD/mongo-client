@@ -26,12 +26,12 @@ def root():
 
 @app.route("/sold")
 def get_sold():
-    return dumps(collection.find_one({'sold': "yes"}))
+    return dumps(collection.find({'sold': "yes"}))
 
 
 @app.route("/not_sold")
 def get_not_sold():
-    return dumps(collection.find_one({'sold': "no"}))
+    return dumps(collection.find({'sold': "no"}))
 
 
 @app.route("/search_by_name")
@@ -52,18 +52,22 @@ def mark_as_sold():
 def add():
     name = request.values.get("name")
     date = request.values.get("date")
+    category = request.values.get("category")
+    microcategory = request.values.get("microcategory")
     collection.insert_one({
         "name": name,
         "date": date,
-        "sold": "no"
+        "sold": "no",
+        "attr": {"category": category,
+                 "microcategory": microcategory}
     })
     return "A new item has been added"
 
 
-@app.route("/delete")
+@app.route("/delete_by_name")
 def remove():
-    key = request.values.get("_id")
-    collection.delete_one({"_id": ObjectId(key)})
+    name = request.values.get("name")
+    collection.delete_one({"name": name})
     return "The card has been successfully deleted"
 
 
