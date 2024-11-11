@@ -71,6 +71,13 @@ def remove():
     return "The card has been successfully deleted"
 
 
+@app.route("/change_name")
+def change_name():
+    get_name = request.values.get("name")
+    set_name = request.values.get("new_name")
+    print(get_name, set_name)
+    collection.update_one({'name': get_name}, {"$set": {"name": set_name}})
+    return "The card has been successfully update"
 
 
 
