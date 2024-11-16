@@ -25,7 +25,7 @@ curl http://localhost:5000/search_by_name?name=ExampleName
 curl http://localhost:5000/mark_as_sold?_id=60b725f10c9d9e0b2b57
 ```
 ```
-curl curl -X POST http://localhost:5000/add \
+curl -X POST http://localhost:5000/add \
     -d "name=NewItem" \
     -d "date=2024-11-09" \
     -d "category=Electronics" \
